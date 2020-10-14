@@ -1,4 +1,9 @@
 defmodule Speech do
+  
+  def list() do
+    [:hamlet, :picard, :logue, :shikibu]
+  end
+  
   def text(:hamlet) do
     """
     To be or not to be,

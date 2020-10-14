@@ -1,31 +1,18 @@
 defmodule MemoirWeb.EraserLive do
   use MemoirWeb, :live_view
   alias Memoir.Eraser
+  alias Temporary.Library
 
-  def mount(_params, _session, socket) do
+  def mount(%{"speech" => speech_name}, _session, socket) do
+    speech = Library.get_speech(String.to_existing_atom(speech_name))
     {
       :ok, 
       assign(
         socket, 
-        eraser: Eraser.new(Speech.hamlet(), 3), 
+        eraser: Eraser.new(speech.text, speech.steps), 
         message: ""
       )
     }
-  end
-  
-  def render(assigns) do
-    ~L"""
-    <h1>Memoir it!!!</h1>
-    <h2>Memorize this:</h2>
-    <p><%= @message %></p>
-    <pre>
-    <%= @eraser.text %>
-    </pre>
-    <button phx-click="memorize">Memorize...</button>
-    <pre>
-      <%= inspect @eraser %>
-    </pre>
-    """
   end
   
   defp set_message(socket) do

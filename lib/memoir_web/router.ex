@@ -18,7 +18,8 @@ defmodule MemoirWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
-    live "/game", EraserLive
+    live "/game/:speech", EraserLive
+    live "/choose_game", PickerLive
   end
 
   # Other scopes may use custom stacks.
